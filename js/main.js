@@ -68,29 +68,19 @@
     prev.addEventListener('click', () => viewport.scrollBy({ left: -viewport.clientWidth, behavior: 'smooth' }));
     next.addEventListener('click', () => viewport.scrollBy({ left: viewport.clientWidth, behavior: 'smooth' }));
 
-    // 👉 Клик по любому изображению в карусели открывает лайтбокс
     viewport.querySelectorAll('.carousel-slide img').forEach(img => {
-      img.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (typeof openLightbox === 'function') {
-          openLightbox(img.src);
-        }
-      });
+      const open = () => { if (typeof openLightbox === 'function') openLightbox(img.src); };
+      img.addEventListener('click', (e) => { e.stopPropagation(); open(); });
+      img.addEventListener('touchend', (e) => { e.preventDefault(); open(); });
     });
 
-    window.addEventListener('load', () => {
-      updateCarouselHeight(viewport);
-      updateButtons(viewport, prev, next);
-    });
-    window.addEventListener('resize', () => {
-      updateCarouselHeight(viewport);
-      updateButtons(viewport, prev, next);
-    });
+    window.addEventListener('load', () => { updateCarouselHeight(viewport); updateButtons(viewport, prev, next); });
+    window.addEventListener('resize', () => { updateCarouselHeight(viewport); updateButtons(viewport, prev, next); });
     updateCarouselHeight(viewport);
     updateButtons(viewport, prev, next);
   });
 
-  // Лайтбокс (объявлен глобально для использования из других мест)
+  // Лайтбокс
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
@@ -110,7 +100,6 @@
     document.body.style.overflow = '';
   }
 
-  // Галерея
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
       const full = item.getAttribute('data-full');
@@ -118,7 +107,6 @@
     });
   });
 
-  // Картинка в аренде
   const rentImage = document.querySelector('.rent-image');
   if (rentImage) {
     const openRent = () => {
@@ -134,7 +122,40 @@
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 
-  // Кнопка "Наверх" показывается/скрывается
+  // Модальное окно контактов
+  const contactModal = document.getElementById('contactModal');
+  const modalClose = document.getElementById('modalClose');
+
+  function openContactModal(e) {
+    e.preventDefault();
+    if (contactModal) {
+      contactModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeContactModal() {
+    if (contactModal) {
+      contactModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.querySelectorAll('.open-contact-modal').forEach(btn => {
+    btn.addEventListener('click', openContactModal);
+  });
+
+  const floatBtn = document.getElementById('floatContactBtn');
+  if (floatBtn) floatBtn.addEventListener('click', openContactModal);
+
+  if (modalClose) modalClose.addEventListener('click', closeContactModal);
+  if (contactModal) {
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) closeContactModal();
+    });
+  }
+
+  // Кнопка "Наверх"
   const backToTop = document.querySelector('.back-to-top');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -142,6 +163,5 @@
     });
   }
 
-  // Делаем openLightbox доступной глобально для вызова из других обработчиков (например, в каруселях)
   window.openLightbox = openLightbox;
 })();
