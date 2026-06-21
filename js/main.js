@@ -68,11 +68,28 @@
     prev.addEventListener('click', () => viewport.scrollBy({ left: -viewport.clientWidth, behavior: 'smooth' }));
     next.addEventListener('click', () => viewport.scrollBy({ left: viewport.clientWidth, behavior: 'smooth' }));
 
+    // --- ИСПРАВЛЕННЫЙ БЛОК: Добавлена защита от свайпа (открытие только при тапе) ---
     viewport.querySelectorAll('.carousel-slide img').forEach(img => {
       const open = () => { if (typeof openLightbox === 'function') openLightbox(img.src); };
-      img.addEventListener('click', (e) => { e.stopPropagation(); open(); });
-      img.addEventListener('touchend', (e) => { e.preventDefault(); open(); });
+      
+      img.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        open(); 
+      });
+
+      let touchStartX = 0, touchStartY = 0;
+      const SWIPE_THRESHOLD = 15;
+      img.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+      img.addEventListener('touchend', (e) => {
+        const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+        const deltaY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+        if (deltaX < SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD) { open(); }
+      });
     });
+    // -------------------------------------------------------------------------------
 
     window.addEventListener('load', () => { updateCarouselHeight(viewport); updateButtons(viewport, prev, next); });
     window.addEventListener('resize', () => { updateCarouselHeight(viewport); updateButtons(viewport, prev, next); });
@@ -100,24 +117,58 @@
     document.body.style.overflow = '';
   }
 
+  // --- ИСПРАВЛЕННЫЙ БЛОК: Галерея с защитой от свайпа ---
   document.querySelectorAll('.gallery-item').forEach(item => {
+    let touchStartX = 0, touchStartY = 0;
+    const SWIPE_THRESHOLD = 15;
+
+    item.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    item.addEventListener('touchend', (e) => {
+      const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+      const deltaY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+      if (deltaX < SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD) {
+        const full = item.getAttribute('data-full');
+        if (full) openLightbox(full);
+      }
+    });
+
     item.addEventListener('click', () => {
       const full = item.getAttribute('data-full');
       if (full) openLightbox(full);
     });
   });
+  // --------------------------------------------------------------------
 
+  // --- ИСПРАВЛЕННЫЙ БЛОК: Аренда с защитой от свайпа ---
   const rentImage = document.querySelector('.rent-image');
   if (rentImage) {
     const openRent = () => {
       const full = rentImage.getAttribute('data-full');
       if (full) openLightbox(full);
     };
+    
+    let touchStartX = 0, touchStartY = 0;
+    const SWIPE_THRESHOLD = 15;
+    rentImage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    rentImage.addEventListener('touchend', (e) => {
+      const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+      const deltaY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+      if (deltaX < SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD) { openRent(); }
+    });
+
     rentImage.addEventListener('click', openRent);
     rentImage.addEventListener('keydown', (e) => { if (e.key === 'Enter') openRent(); });
     const img = rentImage.querySelector('img');
     if (img) img.addEventListener('click', (e) => { e.stopPropagation(); openRent(); });
   }
+  // --------------------------------------------------------------------
 
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
