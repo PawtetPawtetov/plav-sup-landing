@@ -1,4 +1,4 @@
-const sharp = require('sharp');
+﻿const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
@@ -15,7 +15,7 @@ function walkDir(dir) {
       fs.stat(fullPath, (statErr, stats) => {
         if (statErr) return;
         if (stats.isDirectory()) {
-          walkDir(fullPath); // рекурсия в подпапки
+          walkDir(fullPath);
         } else {
           const ext = path.extname(file).toLowerCase();
           if (['.jpg', '.jpeg', '.png'].includes(ext)) {
@@ -25,12 +25,11 @@ function walkDir(dir) {
               .webp({ quality: 80 })
               .toFile(outputPath)
               .then(() => {
-                console.log(`✅ Конвертирован: ${fullPath} → ${outputPath}`);
-                // Удаляем оригинал, если конвертация успешна
+                console.log('✅ Конвертирован: ' + fullPath + ' → ' + outputPath);
                 fs.unlinkSync(fullPath);
-                console.log(`🗑️ Удалён оригинал: ${fullPath}`);
+                console.log('🗑️ Удалён оригинал: ' + fullPath);
               })
-              .catch(err => console.error(`❌ Ошибка: ${fullPath}`, err));
+              .catch(err => console.error('❌ Ошибка: ' + fullPath, err));
           }
         }
       });
