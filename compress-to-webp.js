@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const imagesRoot = './images';
+const ImagesRoot = './Images';
 
 function walkDir(dir) {
   fs.readdir(dir, (err, files) => {
@@ -38,4 +38,4 @@ function walkDir(dir) {
   });
 }
 
-walkDir(imagesRoot);
+walkDir(ImagesRoot);

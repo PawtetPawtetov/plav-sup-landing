@@ -1,8 +1,8 @@
-name: Optimize images (overwrite)
+name: Optimize Images (overwrite)
 on:
   push:
     paths:
-      - 'images/**'
+      - 'Images/**'
 jobs:
   optimize:
     runs-on: ubuntu-latest
