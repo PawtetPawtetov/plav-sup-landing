@@ -119,10 +119,22 @@ section:not(.hero) { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
 }
 .service-card:hover { transform: translateY(-6px); }
 .service-photo-carousel { position: relative; overflow: hidden; }
-.carousel-viewport { display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; }
+
+/* ===== ИСПРАВЛЕНИЕ: фиксированное соотношение сторон для карусели ===== */
+.carousel-viewport {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  aspect-ratio: 4 / 3;         /* НОВОЕ – сохраняет пропорции */
+  min-height: 220px;           /* страховка для старых браузеров */
+}
 .carousel-viewport::-webkit-scrollbar { display: none; }
 .carousel-slide { flex: 0 0 100%; scroll-snap-align: start; }
-.carousel-slide img { width: 100%; height: auto; display: block; cursor: pointer; } /* ← курсор pointer */
+.carousel-slide img { width: 100%; height: auto; display: block; cursor: pointer; }
+/* ================================================================ */
+
 .carousel-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
   background: rgba(0,0,0,0.5); color: #fff; border: none; width: 36px; height: 36px;
@@ -249,4 +261,9 @@ section:not(.hero) { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
   .service-card-body { flex-direction: column; }
   .service-map { width: 100%; height: 160px; }
   .rent-horizontal { flex-direction: column; align-items: center; }
+  /* Уменьшаем плавающую кнопку на мобильных */
+  .telegram-float {
+    width: 50px; height: 50px; bottom: 16px; right: 16px;
+  }
+  .telegram-float svg { width: 28px; height: 28px; }
 }

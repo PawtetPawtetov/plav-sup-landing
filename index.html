@@ -11,6 +11,8 @@
   <title>Plav. — SUP-прогулки и аренда в Санкт-Петербурге</title>
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <!-- Предзагрузка hero-фона для ускорения отрисовки -->
+  <link rel="preload" as="image" href="images/main.webp">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Пропустить навигацию</a>
@@ -78,14 +80,13 @@
     <h2 class="section-title">Прогулки с <span class="accent">инструктором</span></h2>
     <p class="section-subtitle">Выберите маршрут и время — всё остальное мы берём на себя</p>
     <div class="services-grid">
-      <!-- Карточки услуг с каруселью (оставлены без изменений, только добавил loading="lazy") -->
       <!-- Спас на крови -->
       <div class="service-card">
         <div class="service-photo-carousel">
           <div class="carousel-viewport" data-carousel>
-            <div class="carousel-slide"><img src="images/Spas1.webp" alt="Спас на крови вид 1" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Spas2.webp" alt="Спас на крови вид 2" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Spas3.webp" alt="Спас на крови вид 3" loading="lazy"></div>
+            <div class="carousel-slide"><img src="images/Spas1.webp" alt="Спас на крови вид 1" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Spas2.webp" alt="Спас на крови вид 2" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Spas3.webp" alt="Спас на крови вид 3" loading="lazy" width="800" height="600"></div>
           </div>
           <button class="carousel-btn prev" data-prev aria-label="Предыдущее фото">❮</button>
           <button class="carousel-btn next" data-next aria-label="Следующее фото">❯</button>
@@ -107,9 +108,9 @@
       <div class="service-card">
         <div class="service-photo-carousel">
           <div class="carousel-viewport" data-carousel>
-            <div class="carousel-slide"><img src="images/Islands1.webp" alt="Парковые острова 1" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Islands2.webp" alt="Парковые острова 2" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Islands3.webp" alt="Парковые острова 3" loading="lazy"></div>
+            <div class="carousel-slide"><img src="images/Islands1.webp" alt="Парковые острова 1" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Islands2.webp" alt="Парковые острова 2" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Islands3.webp" alt="Парковые острова 3" loading="lazy" width="800" height="600"></div>
           </div>
           <button class="carousel-btn prev" data-prev aria-label="Предыдущее фото">❮</button>
           <button class="carousel-btn next" data-next aria-label="Следующее фото">❯</button>
@@ -134,9 +135,9 @@
       <div class="service-card">
         <div class="service-photo-carousel">
           <div class="carousel-viewport" data-carousel>
-            <div class="carousel-slide"><img src="images/Lakhta1.webp" alt="Лахтинский разлив 1" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Lakhta2.webp" alt="Лахтинский разлив 2" loading="lazy"></div>
-            <div class="carousel-slide"><img src="images/Lakhta3.webp" alt="Лахтинский разлив 3" loading="lazy"></div>
+            <div class="carousel-slide"><img src="images/Lakhta1.webp" alt="Лахтинский разлив 1" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Lakhta2.webp" alt="Лахтинский разлив 2" loading="lazy" width="800" height="600"></div>
+            <div class="carousel-slide"><img src="images/Lakhta3.webp" alt="Лахтинский разлив 3" loading="lazy" width="800" height="600"></div>
           </div>
           <button class="carousel-btn prev" data-prev aria-label="Предыдущее фото">❮</button>
           <button class="carousel-btn next" data-next aria-label="Следующее фото">❯</button>
@@ -164,7 +165,7 @@
     <h2 class="section-title">Аренда <span class="accent">SUP-досок</span></h2>
     <p class="section-subtitle">Гибкие тарифы и отличное оборудование для вашего отдыха</p>
     <div class="rent-image" data-full="images/equipment.webp" role="button" tabindex="0" aria-label="Открыть увеличенное фото снаряжения">
-      <img src="images/equipment.webp" alt="Комплектация SUP-доски" id="equipmentImg" loading="lazy">
+      <img src="images/equipment.webp" alt="Комплектация SUP-доски" id="equipmentImg" loading="lazy" width="800" height="533">
     </div>
     <div class="rent-horizontal">
       <div class="rent-col">
@@ -202,14 +203,14 @@
   <section id="gallery" aria-label="Галерея впечатлений">
     <h2 class="section-title">Галерея <span class="accent">впечатлений</span></h2>
     <div class="gallery-scroll" id="galleryScroll">
-      <div class="gallery-item" data-full="images/impressions/1.webp"><img src="images/impressions/1.webp" alt="Впечатление 1" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/2.webp"><img src="images/impressions/2.webp" alt="Впечатление 2" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/3.webp"><img src="images/impressions/3.webp" alt="Впечатление 3" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/4.webp"><img src="images/impressions/4.webp" alt="Впечатление 4" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/5.webp"><img src="images/impressions/5.webp" alt="Впечатление 5" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/6.webp"><img src="images/impressions/6.webp" alt="Впечатление 6" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/7.webp"><img src="images/impressions/7.webp" alt="Впечатление 7" loading="lazy"></div>
-      <div class="gallery-item" data-full="images/impressions/8.webp"><img src="images/impressions/8.webp" alt="Впечатление 8" loading="lazy"></div>
+      <div class="gallery-item" data-full="images/impressions/1.webp"><img src="images/impressions/1.webp" alt="Впечатление 1" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/2.webp"><img src="images/impressions/2.webp" alt="Впечатление 2" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/3.webp"><img src="images/impressions/3.webp" alt="Впечатление 3" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/4.webp"><img src="images/impressions/4.webp" alt="Впечатление 4" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/5.webp"><img src="images/impressions/5.webp" alt="Впечатление 5" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/6.webp"><img src="images/impressions/6.webp" alt="Впечатление 6" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/7.webp"><img src="images/impressions/7.webp" alt="Впечатление 7" loading="lazy" width="300" height="200"></div>
+      <div class="gallery-item" data-full="images/impressions/8.webp"><img src="images/impressions/8.webp" alt="Впечатление 8" loading="lazy" width="300" height="200"></div>
     </div>
   </section>
 
